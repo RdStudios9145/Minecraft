@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Minecraft</title>
+		<link href="./dist/style.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="e" class="container">
+			<div id="settings">
+				<input type="range" name="fov" id="fov" min="60" max="90" value="64">
+				<label for="fov">fov: 64</label>
+				<p id="play_text">click to play</p>
+			</div>
+		</div>
+		<div class="container">
+			<canvas id="canvas"></canvas>
+		</div>
+		<div class="container" style="z-index: 1;"><img src="img/crosshair.png" alt="crosshair" style="width: 25px; height: 25px;"></div>
+		<script src="dist/bundle.js"></script>
+		<!-- <script src="https://analytics.rdstudios.repl.co/analytics.js?name=online-minecraft-clone"></script> -->
+	</body>
+</html>
