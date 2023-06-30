@@ -6,6 +6,7 @@
 		"target": "ES5",
 		"allowJs": true,
 		"moduleResolution": "node",
-		"strict": false
+		"strict": false,
+		"removeComments": true
 	}
 }
