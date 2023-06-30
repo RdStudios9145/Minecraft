@@ -6,6 +6,8 @@ I open sourced this now
 
 Build with webpack or play [here](https://minecraft.rdstudios.repl.co)
 
+This is the Production branch, which is garunteed to be stable and is the branch that will be pushed to the website.
+
 ## How to build
 
 1. Install the repo on your computer with ```git https://github.com/RdStudios9145/Minecraft.git```
