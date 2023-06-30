@@ -7,12 +7,13 @@ class World {
 	chunks: object = {};
 
 	constructor() {
-		this.chunks[0] = {};
-
-		for (let x = 0; x < 2; x++) {
-			this.chunks[0][x] = {};
-			for (let z = 0; z < 2; z++)
-				this.chunks[0][x][z] = new Chunk(new three.Vector3(x, 0, z));
+		for (let y = 0; y < 2; y++) {
+			this.chunks[y] = {};
+			for (let x = 0; x < 2; x++) {
+				this.chunks[y][x] = {};
+				for (let z = 0; z < 2; z++)
+					this.chunks[y][x][z] = new Chunk(new three.Vector3(x * 16, y * 16, z * 16));
+			}
 		}
 	}
 	

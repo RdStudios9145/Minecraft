@@ -6,9 +6,11 @@ import { BlockTypes } from "./block.types";
 
 class Player {
 	pos = new three.Vector3(0, 16, 0);
-	vel = new three.Vector3(0, -.1, 0);
+	vel = new three.Vector3(0, 0, 0);
+	trueVel = new three.Vector3(0, 0, 0);
 	speed = .8;
 	grounded = false;
+	velSet = false;
 
 	camera = null as three.PerspectiveCamera;
 
@@ -25,7 +27,17 @@ class Player {
 		// });
 		// game.physicsWorld.addBody(this.rigidbody);
 	}
-	
+
+	calcTrueVel = () => {
+		const x = this.vel.x, z = this.vel.z;
+		const dir = (new three.Vector3(x, 0, z)).applyQuaternion(this.camera.quaternion);
+		dir.setY(this.vel.y);
+		dir.normalize();
+		// if (!this.grounded)
+		// 	dir.setY(dir.y - 0.1);
+		// console.log(dir.y, this.grounded);
+		this.trueVel = dir;
+	};
 
 	rayCast = () => {
 		const raycaster = new three.Raycaster(this.camera.position, (new three.Vector3(0, 0, -1)).applyQuaternion(this.camera.quaternion), 0, 10);
@@ -80,13 +92,15 @@ class Player {
 
 	Update = (delta: number) => {
 		// this.pos = this.pos.addVectors(this.pos, this.vel)
-		const x = this.vel.x, z = this.vel.z;
-		const dir = (new three.Vector3(x, 0, z)).applyQuaternion(this.camera.quaternion);
-		dir.setY(this.vel.y);
-		dir.normalize();
-		if (!this.grounded)
-			dir.setY(dir.y - 0.1);
-		this.pos.addScaledVector(dir, delta);
+		if (!this.velSet) {
+			this.calcTrueVel();
+		}
+
+		console.log("vel", JSON.parse(JSON.stringify(this.trueVel)), JSON.parse(JSON.stringify(this.pos)));
+		
+		this.pos.addScaledVector(this.trueVel, delta);
+		console.log("vel", JSON.parse(JSON.stringify(this.trueVel)), JSON.parse(JSON.stringify(this.pos)));
+		this.trueVel.multiplyScalar(0);
 		// this.camera.position.set(this.pos.x, this.pos.y + 1, this.pos.z);
 
 		if (this.vel != v30) this.Hover();
@@ -113,6 +127,11 @@ class Player {
 	};
 
 	setSpeed = (key: string, mult = 1) => {
+		// D, A, S, W, Space, Shift
+		// +X -> Right
+		// -X -> Left
+		// +Z -> Backward
+		// -Z -> Forward
 		switch (key.toLowerCase()) {
 			case keyCodes[0]: if (!(!game.keys[key] && !game.keys[keyCodes[1]] && this.vel.equals(v30))) this.vel.x += mult * this.speed; break;
 			case keyCodes[1]: if (!(!game.keys[key] && !game.keys[keyCodes[0]] && this.vel.equals(v30))) this.vel.x -= mult * this.speed; break;

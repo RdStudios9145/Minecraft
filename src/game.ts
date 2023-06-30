@@ -3,6 +3,7 @@ import { PointerLockControls } from "three/examples/jsm/controls/PointerLockCont
 import { World } from "./world";
 import { Player } from "./player";
 import { canvas, c, WIDTH, HEIGHT } from "./vars";
+import { Block } from "./block";
 // import * as cannon from "cannon";
 
 class Game {
@@ -92,6 +93,12 @@ class Game {
 		const t = new three.AmbientLight("white", 1);
 		this.scene.add(t);
 
+	};
+
+	getBlock = (pos: three.Vector3): Block | undefined => {
+		const chunk = this.world.chunks[Math.floor((pos.y + 8) / 16) + 1][Math.floor((pos.x + 8) / 16) + 1][Math.floor((pos.z + 8) / 16) + 1];
+		// console.log(pos.y % 16, pos.x % 16, pos.z % 16);
+		return chunk.blocks[(pos.y % 16) + 16][(pos.x % 16) + 16][(pos.z % 16) + 16];
 	};
 }
 

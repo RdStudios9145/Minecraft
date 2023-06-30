@@ -32,7 +32,7 @@ class Block {
 
 		this.cube = new three.Mesh(this.geometry, this.mat);
 		this.cube.position.set(this.pos.x, this.pos.y, this.pos.z);
-		game.scene.add(this.cube);
+		// game.scene.add(this.cube);
 
 		// this.rigidbody = new cannon.Body({
 		// 	mass: _type.gravity ? 1 : 0,
