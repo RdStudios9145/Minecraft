@@ -1,7 +1,7 @@
 import * as three from "three";
 import { Block } from "./block";
 import { BlockTypes } from "./block.types";
-import * as Noise from "perlin-simplex";
+import * as Noise from "ts-perlin-simplex";
 import { game, v30 } from "./vars";
 import { AABB, handleCollision, playerWillPass } from "./physics/physics";
 

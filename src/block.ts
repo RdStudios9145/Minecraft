@@ -1,5 +1,5 @@
 import * as three from "three";
-import { game } from "./vars";
+// import { game } from "./vars";
 import { BlockType, BlockTypes } from "./block.types";
 // import * as cannon from "cannon";
 
