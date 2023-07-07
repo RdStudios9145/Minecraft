@@ -10,6 +10,7 @@ const range = (value = 0, min = 0, max = 16) => value * (max - min) + min;
 
 class Chunk {
 	// blocks: Record<number, Record<number, Record<number, Block | undefined>>> = {};
+	/** YXZ Order */
 	blocks: { [ID: number]: { [ID: number]: { [ID: number]: Block | undefined } } } = {};
 
 	pos: three.Vector3 = null;
@@ -37,17 +38,17 @@ class Chunk {
 			}
 		}
 
-		const outline = new three.BoxHelper(new three.Mesh(new three.BoxGeometry(16, 16, 16), new three.MeshBasicMaterial({ color: 0xffffff })));
-		outline.position.set(this.pos.x, this.pos.y, this.pos.z);
-		game.scene.add(outline);
-		console.log(JSON.parse(JSON.stringify(this.pos)), JSON.parse(JSON.stringify(_pos.subScalar(.5))), JSON.parse(JSON.stringify(outline.position)));
+		// const outline = new three.BoxHelper(new three.Mesh(new three.BoxGeometry(16, 16, 16), new three.MeshBasicMaterial({ color: 0xffffff })));
+		// outline.position.set(this.pos.x, this.pos.y, this.pos.z);
+		// game.scene.add(outline);
+		// console.log(JSON.parse(JSON.stringify(this.pos)), JSON.parse(JSON.stringify(_pos.subScalar(.5))), JSON.parse(JSON.stringify(outline.position)));
 
-		const box = new three.Mesh(new three.BoxGeometry(), new three.MeshBasicMaterial({ color: 0xffffff, wireframe: true }));
-		box.position.set(this.pos.x + 1, this.pos.y + 15, this.pos.z);
-		game.scene.add(box);
-		const box2 = new three.Mesh(new three.BoxGeometry(), new three.MeshBasicMaterial({ color: 0xffffff, wireframe: true }));
-		box2.position.set(this.pos.x, this.pos.y + 15, this.pos.z);
-		game.scene.add(box2);
+		// const box = new three.Mesh(new three.BoxGeometry(), new three.MeshBasicMaterial({ color: 0xffffff, wireframe: true }));
+		// box.position.set(this.pos.x + 1, this.pos.y + 15, this.pos.z);
+		// game.scene.add(box);
+		// const box2 = new three.Mesh(new three.BoxGeometry(), new three.MeshBasicMaterial({ color: 0xffffff, wireframe: true }));
+		// box2.position.set(this.pos.x, this.pos.y + 15, this.pos.z);
+		// game.scene.add(box2);
 	}
 	
 
@@ -80,7 +81,7 @@ class Chunk {
 						if (collide) {
 							velSet = true;
 							handleCollision(block.pos);
-							console.log("collision");
+							// console.log("collision");
 						}
 					}
 				}

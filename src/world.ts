@@ -4,7 +4,7 @@ import * as three from "three";
 class World {
 	/** YXZ order */
 	// blocks: object = {};
-	chunks: object = {};
+	chunks: { [ID: number]: { [ID: number]: { [ID: number]: Chunk } } } = {};
 
 	constructor() {
 		for (let y = 0; y < 2; y++) {

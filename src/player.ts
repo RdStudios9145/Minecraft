@@ -33,10 +33,14 @@ class Player {
 		const dir = (new three.Vector3(x, 0, z)).applyQuaternion(this.camera.quaternion);
 		dir.setY(this.vel.y);
 		dir.normalize();
-		// if (!this.grounded)
-		// 	dir.setY(dir.y - 0.1);
+		if (!this.grounded)
+			dir.setY(dir.y - 0.1);
 		// console.log(dir.y, this.grounded);
 		this.trueVel = dir;
+	};
+
+	UpdateSurroundingBlocks = (pos: three.Vector3) => {
+		
 	};
 
 	rayCast = () => {
@@ -53,9 +57,12 @@ class Player {
 		game.scene.remove(intersect.object);
 
 		const pos = intersect.object.position;
-		try { game.world.chunks[0].blocks[pos.y][pos.x][pos.z] = null; } catch {}
+		// console.log(game.world.chunks[0][0][0].blocks.length)
+		try { game.world.chunks[0][0][0].blocks[pos.y][pos.x][pos.z] = null; } catch {}
 
 		this.Hover();
+
+		this.UpdateSurroundingBlocks(pos);
 	};
 
 	Place = () => {
@@ -65,7 +72,10 @@ class Player {
 		const face = intersect.face;
 		const pos = new three.Vector3().addVectors(intersect.object.position, face.normal);
 		const block = new Block(pos, BlockTypes.Sand);
-		try { game.world.chunks[0].blocks[pos.y][pos.x][pos.z] = block; } catch {}
+		game.scene.add(block.cube);
+		try { game.world.chunks[0][0][0].blocks[pos.y][pos.x][pos.z] = block; } catch {}
+
+		this.UpdateSurroundingBlocks(intersect.object.position);
 	};
 
 	Hover = () => {
@@ -96,10 +106,10 @@ class Player {
 			this.calcTrueVel();
 		}
 
-		console.log("vel", JSON.parse(JSON.stringify(this.trueVel)), JSON.parse(JSON.stringify(this.pos)));
+		// console.log("vel", JSON.parse(JSON.stringify(this.trueVel)), JSON.parse(JSON.stringify(this.pos)));
 		
 		this.pos.addScaledVector(this.trueVel, delta);
-		console.log("vel", JSON.parse(JSON.stringify(this.trueVel)), JSON.parse(JSON.stringify(this.pos)));
+		// console.log("vel", JSON.parse(JSON.stringify(this.trueVel)), JSON.parse(JSON.stringify(this.pos)));
 		this.trueVel.multiplyScalar(0);
 		// this.camera.position.set(this.pos.x, this.pos.y + 1, this.pos.z);
 
@@ -139,8 +149,8 @@ class Player {
 			case keyCodes[3]: if (!(!game.keys[key] && !game.keys[keyCodes[2]] && this.vel.equals(v30))) this.vel.z -= mult * this.speed; break;
 			case keyCodes[4]: if (!(!game.keys[key] && !game.keys[keyCodes[5]] &&
 				!game.keys[keyCodes[6]] && this.vel.equals(v30))) this.vel.y += mult * this.speed; break;
-			case keyCodes[5]: if (!(!game.keys[key] && !game.keys[keyCodes[4]] && this.vel.equals(v30))) this.vel.y -= mult * this.speed; break;
-			case keyCodes[6]: if (!(!game.keys[key] && !game.keys[keyCodes[4]] && this.vel.equals(v30))) this.vel.y -= mult * this.speed; break;
+			// case keyCodes[5]: if (!(!game.keys[key] && !game.keys[keyCodes[4]] && this.vel.equals(v30))) this.vel.y -= mult * this.speed; break;
+			// case keyCodes[6]: if (!(!game.keys[key] && !game.keys[keyCodes[4]] && this.vel.equals(v30))) this.vel.y -= mult * this.speed; break;
 		}
 	};
 }

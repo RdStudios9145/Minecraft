@@ -24,6 +24,7 @@ const playerWillPass = (pos: three.Vector3): boolean => {
 
 const coll = (tan: three.Vector3) => {
 	const dot = tan.dot(game.player.trueVel);
+	// if (dot <= 0) return;
 	// console.log(JSON.parse(JSON.stringify(tan)), JSON.parse(JSON.stringify(dot)), JSON.parse(JSON.stringify(game.player.trueVel.x * tan.x + game.player.trueVel.y * tan.y + game.player.trueVel.z * tan.z)));
 	tan.multiplyScalar(dot);
 	// console.log(JSON.parse(JSON.stringify(dot)), JSON.parse(JSON.stringify(tan)), JSON.parse(JSON.stringify(game.player.trueVel)));
